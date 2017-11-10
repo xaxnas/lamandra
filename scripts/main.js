@@ -13,7 +13,7 @@ function Migalka() {
 }
 
 var stopButton = document.getElementById("stop");
-var stopButtonTriggered = false;
+var stopButtonTriggered = true;
 
 myImage.onclick = function() {
     var mySrc = myImage.getAttribute('src');
@@ -24,7 +24,7 @@ myImage.onclick = function() {
     }
 }
 
-if(localStorage.getItem('name')!=null) {
+if(localStorage.getItem('name') != null) {
   var storedName = localStorage.getItem('name');
   myHeading.innerHTML  = 'H@H@H@, hi, ' + storedName;
 }
@@ -46,5 +46,3 @@ stopButton.onclick = function() {
 		stopButtonTriggered = true;
 	}
 }
-
-var t=setInterval(Migalka,100);
