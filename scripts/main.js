@@ -3,8 +3,6 @@ var myImage = document.querySelector('img');
 var myHeading = document.querySelector('h1');
 var myButton = document.getElementById("name");
 
-var t=setInterval(Migalka,100);
-
 function Migalka() {
 	var mySrc = myImage.getAttribute('src');
     if(mySrc === 'images/penguins_2.jpg') {
@@ -26,19 +24,15 @@ myImage.onclick = function() {
     }
 }
 
-function setUserName() {
-  var myName = prompt('Please enter your name.');
-  localStorage.setItem('name', myName);
-  myHeading.innerHTML  = 'H@H@H@, hi, ' + myName;
-}
-
 if(localStorage.getItem('name')) {
   var storedName = localStorage.getItem('name');
   myHeading.innerHTML  = 'H@H@H@, hi, ' + storedName;
 }
 
 myButton.onclick = function() {
-  setUserName();
+  var myName = prompt('Please enter your name.');
+  localStorage.setItem('name', myName);
+  myHeading.innerHTML  = 'H@H@H@, hi, ' + myName;
 }
 
 stopButton.onclick = function() {
@@ -52,3 +46,5 @@ stopButton.onclick = function() {
 		stopButtonTriggered = true;
 	}
 }
+
+var t=setInterval(Migalka,100);
