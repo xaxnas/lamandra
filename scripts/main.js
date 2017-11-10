@@ -5,6 +5,15 @@ var myButton = document.getElementById("name");
 
 var t=setInterval(Migalka,100);
 
+function Migalka() {
+	var mySrc = myImage.getAttribute('src');
+    if(mySrc === 'images/penguins_2.jpg') {
+      myImage.setAttribute ('src','images/penguins_2.png');
+    } else {
+      myImage.setAttribute ('src','images/penguins_2.jpg');
+    }
+}
+
 var stopButton = document.getElementById("stop");
 var stopButtonTriggered = false;
 
@@ -23,9 +32,7 @@ function setUserName() {
   myHeading.innerHTML  = 'H@H@H@, hi, ' + myName;
 }
 
-if(!localStorage.getItem('name')) {
-  setUserName();
-} else {
+if(localStorage.getItem('name')) {
   var storedName = localStorage.getItem('name');
   myHeading.innerHTML  = 'H@H@H@, hi, ' + storedName;
 }
@@ -44,13 +51,4 @@ stopButton.onclick = function() {
 		stopButton.childNodes[0].nodeValue = "start";
 		stopButtonTriggered = true;
 	}
-}
-
-function Migalka() {
-	var mySrc = myImage.getAttribute('src');
-    if(mySrc === 'images/penguins_2.jpg') {
-      myImage.setAttribute ('src','images/penguins_2.png');
-    } else {
-      myImage.setAttribute ('src','images/penguins_2.jpg');
-    }
 }
