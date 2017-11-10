@@ -24,7 +24,7 @@ myImage.onclick = function() {
     }
 }
 
-if(localStorage.getItem('name')) {
+if(localStorage.getItem('name')!=null) {
   var storedName = localStorage.getItem('name');
   myHeading.innerHTML  = 'H@H@H@, hi, ' + storedName;
 }
