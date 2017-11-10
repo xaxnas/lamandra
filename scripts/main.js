@@ -12,9 +12,6 @@ function Migalka() {
     }
 }
 
-var stopButton = document.getElementById("stop");
-var stopButtonTriggered = true;
-
 myImage.onclick = function() {
     var mySrc = myImage.getAttribute('src');
     if(mySrc === 'images/penguins_2.jpg') {
@@ -34,6 +31,10 @@ myButton.onclick = function() {
   localStorage.setItem('name', myName);
   myHeading.innerHTML  = 'H@H@H@, hi, ' + myName;
 }
+
+var stopButton = document.getElementById("stop");
+var stopButtonTriggered = false;
+t=setInterval(Migalka,100);
 
 stopButton.onclick = function() {
 	if (stopButtonTriggered) {

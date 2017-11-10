@@ -2,6 +2,10 @@ html {
   background-color: #00539F;
 }
 
+#preload-01 { background: url(http://domain.tld/image-01.png) no-repeat -9999px -9999px; }
+#preload-02 { background: url(http://domain.tld/image-02.png) no-repeat -9999px -9999px; }
+#preload-03 { background: url(http://domain.tld/image-03.png) no-repeat -9999px -9999px; }
+
 body {
   width: 80%;
   margin: 0 auto;
