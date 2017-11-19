@@ -30,10 +30,10 @@ ClickButton.onclick = function ClickButtonOnClick() {
 
 var stopButton = document.getElementById("stop");
 var stopButtonTriggered;
-if(get_cookie("stopButtonTriggered")==="true") {
-	stopButtonTriggered = true;
+if(get_cookie("stopButtonTriggered")==="false") {
+	stopButtonTriggered = false;
 	} else {
-		stopButtonTriggered = false;
+		stopButtonTriggered = true;
 	}
 t=setInterval(Migalka,100);
 
@@ -75,8 +75,7 @@ function get_cookie (cookie_name) {
 window.onload = function load_start_cookie_from_page() {
 	ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
 	if(stopButtonTriggered) {
-		clearInterval(t);
-	stopButton.childNodes[0].nodeValue = "start"; }
+		clearInterval(t); } else {stopButton.childNodes[0].nodeValue = "stop";}
 		
 	document.getElementById("cover").style.visibility = 'hidden';
 }
