@@ -69,7 +69,7 @@ function get_cookie (cookie_name) {
         while (c.charAt(0)==' ') c = c.substring(1,c.length);
         if (c.indexOf(nameEQ) == 0) return decodeURI(c.substring(nameEQ.length,c.length));
     }
-    return "error";
+    return 0;
 } //read cookies
 //-----------------------------------------start page values----------------------------------
 window.onload = function load_start_cookie_from_page() {
