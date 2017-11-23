@@ -3,7 +3,7 @@ var myImage = document.getElementById('img_peng1');
 var ClickButton = document.getElementById("ClickButton");
 var ClickedCountText = document.getElementById("ClickedCountHTML");
 
-var ClickCount = parseInt(get_cookie("ClickCount"));
+var ClickCount = parseFloat(get_cookie("ClickCount"));
 
 function Migalka() {
 	var mySrc = myImage.getAttribute('src');
@@ -37,6 +37,7 @@ if(get_cookie("stopButtonTriggered")==="false") {
 	}
 t=setInterval(Migalka,100);
 
+
 function stopButtonOnClick() {
 	if (stopButtonTriggered) {
 		t=setInterval(Migalka,100);
@@ -49,7 +50,37 @@ function stopButtonOnClick() {
 	}
 } 
 stopButton.onclick = stopButtonOnClick;
+//---------------------------------------------autoclick-----------------------------
+var AutoClickButton = document.getElementById("AutoClickButton");
+if(parseFloat(get_cookie("AutoClickCost"))===0) AutoClickCost = 50; else AutoClickCost = parseFloat(get_cookie("AutoClickCost"));
+var AutoClickAmount = parseInt(get_cookie("AutoClickAmount"));
+var AutoClickPower = 0.1;
+AutoClickButton.onclick = function AutoClickButtonOnClick() {
+	if(ClickCount>=AutoClickCost) {
+		ClickCount = Math.round((ClickCount - AutoClickCost)*10)/10;
+		AutoClickCost = Math.round(AutoClickCost*1.25*10)/10;
+		AutoClickAmount = AutoClickAmount + 1;
+		AutoClickButton.childNodes[0].nodeValue = "auto[" + AutoClickAmount + "] ["+AutoClickCost+"click]";
+		ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
+	}
+}
+//---------------------------------------------every second--------------------------
+timeSecond=setInterval(EverySecondFunction, 1000);
+var second=parseInt(get_cookie("second")); var secondString="00";
+var minute=parseInt(get_cookie("minute")); var minuteString="00:";
+var hour=parseInt(get_cookie("hour")); var hourString="00:";
 
+function EverySecondFunction() {
+	second=second+1;
+	ClickCount = Math.round((ClickCount + (Math.round(AutoClickAmount*AutoClickPower*10)/10))*10)/10;
+	if (second===60) {minute=minute+1; second=0;}
+	if (minute===60) {hour=hour+1; minute=0;}
+	if (second<10) secondString="0"+second; else secondString=second;
+	if (minute<10) minuteString="0"+minute+":"; else minuteString=minute+":";
+	if (hour<10) hourString="0"+hour+":"; else houreString=hour+":";
+	ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
+	document.getElementById("TimeElapsed").childNodes[0].nodeValue = "time elapsed: "+hourString+minuteString+secondString;
+}
 //---------------------------------------------cookies-------------------------------
 function set_cookie (name, value) {
    document.cookie = name + "=" + encodeURI(value.toString()) + "; expires = Thu, 18 Dec 2019 12:00:00 UTC; path=/";
@@ -57,6 +88,8 @@ function set_cookie (name, value) {
 function SaveCookie() {
 	set_cookie("ClickCount", ClickCount);
 	set_cookie("stopButtonTriggered", stopButtonTriggered);
+	set_cookie("second", second); set_cookie("minute", minute);  set_cookie("hour", hour);
+	set_cookie("AutoClickCost", AutoClickCost); set_cookie("AutoClickAmount", AutoClickAmount); set_cookie("AutoClickPower", AutoClickPower);
 } //add here what to save
 var SaveButton = document.getElementById("SaveButton");
 SaveButton.onclick = SaveCookie; //call by click
@@ -73,9 +106,8 @@ function get_cookie (cookie_name) {
 } //read cookies
 //-----------------------------------------start page values----------------------------------
 window.onload = function load_start_cookie_from_page() {
-	ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
-	if(stopButtonTriggered) {
-		clearInterval(t); } else {stopButton.childNodes[0].nodeValue = "stop";}
-		
+	if(stopButtonTriggered) {clearInterval(t);} else {stopButton.childNodes[0].nodeValue = "stop";}
+	AutoClickButton.childNodes[0].nodeValue = "auto["+AutoClickAmount+"] ["+AutoClickCost+"click]";
+	EverySecondFunction();	
 	document.getElementById("cover").style.visibility = 'hidden';
 }

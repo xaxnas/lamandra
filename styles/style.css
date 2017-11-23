@@ -28,6 +28,21 @@ p {
 	background-color: #0095FF;
 	padding: 0.5vh;
 	border-bottom: 0.2vh solid #FF95FF;
+	float: left;
+}
+
+#body_top_left{
+	width: 50%;
+	float: left;
+}
+
+#body_top_right{
+	width: 50%;
+	float: left;
+}
+
+#SaveButton {
+	float: right;
 }
 
 #left {
