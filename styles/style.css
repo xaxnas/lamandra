@@ -22,6 +22,7 @@ button {
 	font-size: 1.5vh;
 	float: left;
 	margin-right: 0.5vh;
+	background-color: #909090;
 }
 #cover {
 	position: fixed; height: 100vh; width: 100vw; top:0; left: 0; background: #000; z-index:9999;
