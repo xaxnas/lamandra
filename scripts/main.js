@@ -3,7 +3,7 @@ var myImage = document.getElementById('img_peng1');
 var ClickButton = document.getElementById("ClickButton");
 var ClickedCountText = document.getElementById("ClickedCountHTML");
 
-var ClickCount = parseFloat(get_cookie("ClickCount"), 0);
+var ClickCount = parseFloat(get_cookie("ClickCount", 0));
 
 function Migalka() {
 	var mySrc = myImage.getAttribute('src');
