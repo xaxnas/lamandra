@@ -29,7 +29,7 @@ ClickButton.onclick = function ClickButtonOnClick() {
 }
 
 var stopButton = document.getElementById("stop");
-var stopButtonTriggered = (get_cookie("stopButtonTriggered", "false")==="true");
+var stopButtonTriggered = (get_cookie("stopButtonTriggered", "true")==="true");
 
 t=setInterval(Migalka,100);
 
@@ -82,14 +82,14 @@ function RoundTo(value) {
 	return Math.round(value*10)/10;
 }
 //---------------------------------------------cookies-------------------------------
-function set_cookie (name) {
-   document.cookie = name + "=" + encodeURI(name.toString()) + "; expires = Thu, 18 Dec 2019 12:00:00 UTC; path=/";
+function set_cookie (name, value) {
+   document.cookie = name + "=" + encodeURI(value.toString()) + "; expires = Thu, 18 Dec 2019 12:00:00 UTC; path=/";
 } //save cookie
 function SaveCookie() {
-	set_cookie("ClickCount");
-	set_cookie("stopButtonTriggered");
-	set_cookie("second"); set_cookie("minute");  set_cookie("hour");
-	set_cookie("AutoClickCost"); set_cookie("AutoClickAmount"); set_cookie("AutoClickPower");
+	set_cookie("ClickCount",ClickCount);
+	set_cookie("stopButtonTriggered",stopButtonTriggered);
+	set_cookie("second",second); set_cookie("minute",minute);  set_cookie("hour",hour);
+	set_cookie("AutoClickCost",AutoClickCost); set_cookie("AutoClickAmount",AutoClickAmount); set_cookie("AutoClickPower",AutoClickPower);
 } //add here what to save
 var SaveButton = document.getElementById("SaveButton");
 SaveButton.onclick = SaveCookie; //call by click
@@ -104,10 +104,24 @@ function get_cookie (cookie_name, defaut) {
     }
     return defaut;
 } //read cookies
+//-----------------------------------------preload--------------------------------------------
+var images = new Array()
+
+function preload() {
+	for (i = 0; i < preload.arguments.length; i++) {
+		images[i] = new Image()
+		images[i].src = preload.arguments[i]
+	}
+}
+preload(
+	"images/penguins_2.jpg",
+	"images/penguins_2.png"
+)
 //-----------------------------------------start page values----------------------------------
 window.onload = function load_start_cookie_from_page() {
 	if(stopButtonTriggered) {clearInterval(t);} else {stopButton.childNodes[0].nodeValue = "stop";}
 	AutoClickButton.childNodes[0].nodeValue = "auto["+AutoClickAmount+"] ["+AutoClickCost+"click]";
+	preload();
 	EverySecondFunction();	
 	document.getElementById("cover").style.visibility = 'hidden';
 }
