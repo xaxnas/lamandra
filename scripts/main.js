@@ -1,51 +1,21 @@
-var myImage = document.getElementById('img_peng1');
+//---------------------------------------------general vars--------------------------
+var LocationImage = document.getElementById('img_location');
 
+var Bot_Text = document.getElementById("body_center_bot_text").childNodes[0]; //bot text
+
+var Button_1 = document.getElementById("bot_button_1"), Button_2 = document.getElementById("bot_button_2"), Button_3 = document.getElementById("bot_button_3"); //bot button path
+var Button_4 = document.getElementById("bot_button_4"), Button_5 = document.getElementById("bot_button_5"), Button_6 = document.getElementById("bot_button_6");
+var Button_7 = document.getElementById("bot_button_7"), Button_8 = document.getElementById("bot_button_8"), Button_9 = document.getElementById("bot_button_9");
+//---------------------------------------------click button--------------------------
 var ClickButton = document.getElementById("ClickButton");
 var ClickedCountText = document.getElementById("ClickedCountHTML");
 
 var ClickCount = parseFloat(get_cookie("ClickCount", 0));
 
-function Migalka() {
-	var mySrc = myImage.getAttribute('src');
-    if(mySrc === 'images/penguins_2.jpg') {
-      myImage.setAttribute ('src','images/penguins_2.png');
-    } else {
-      myImage.setAttribute ('src','images/penguins_2.jpg');
-    }
-}
-
-myImage.onclick = function myImageOnClick() {
-    var mySrc = myImage.getAttribute('src');
-    if(mySrc === 'images/penguins_2.jpg') {
-      myImage.setAttribute ('src','images/penguins_2.png');
-    } else {
-      myImage.setAttribute ('src','images/penguins_2.jpg');
-    }
-}
-
 ClickButton.onclick = function ClickButtonOnClick() {
 	ClickCount = ClickCount + 1;
-	ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
+	ClickedCountText.childNodes[0].nodeValue = "clicked: " + FormatNumberTo(ClickCount);
 }
-
-var stopButton = document.getElementById("stop");
-var stopButtonTriggered = (get_cookie("stopButtonTriggered", "true")==="true");
-
-t=setInterval(Migalka,100);
-
-
-function stopButtonOnClick() {
-	if (stopButtonTriggered) {
-		t=setInterval(Migalka,100);
-		stopButton.childNodes[0].nodeValue = "stop";
-		stopButtonTriggered = false;
-	} else{
-		clearInterval(t);
-		stopButton.childNodes[0].nodeValue = "start";
-		stopButtonTriggered = true;
-	}
-} 
-stopButton.onclick = stopButtonOnClick;
 //---------------------------------------------autoclick-----------------------------
 var AutoClickButton = document.getElementById("AutoClickButton");
 var AutoClickCost = parseFloat(get_cookie("AutoClickCost", 50));
@@ -56,10 +26,23 @@ AutoClickButton.onclick = function AutoClickButtonOnClick() {
 		ClickCount = RoundTo(ClickCount - AutoClickCost);
 		AutoClickCost = RoundTo(AutoClickCost*1.25);
 		AutoClickAmount = AutoClickAmount + 1;
-		AutoClickButton.childNodes[0].nodeValue = "auto[" + AutoClickAmount + "] ["+AutoClickCost+"click]";
-		ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
+		AutoClickButton.childNodes[0].nodeValue = "auto[" + AutoClickAmount + "] ["+FormatNumberTo(AutoClickCost)+"click]";
+		ClickedCountText.childNodes[0].nodeValue = "clicked: " + FormatNumberTo(ClickCount);
 	}
 }
+//---------------------------------------------location------------------------------
+var LocationName = "home";
+
+function DisableButtons(){
+	for (i = 0; i < DisableButtons.arguments.length; i++) {
+		document.getElementById(DisableButtons.arguments[i]+"LocationClick").disabled=true;
+	}
+} //expample - DisableButtons("home", "forest");
+function EnableButtons(){
+	for (i = 0; i < EnableButtons.arguments.length; i++) {
+		document.getElementById(EnableButtons.arguments[i]+"LocationClick").disabled=false;
+	}
+} 
 //---------------------------------------------every second--------------------------
 timeSecond=setInterval(EverySecondFunction, 1000);
 var second=parseInt(get_cookie("second", 0)); var secondString="00";
@@ -74,54 +57,25 @@ function EverySecondFunction() {
 	if (second<10) secondString="0"+second; else secondString=second;
 	if (minute<10) minuteString="0"+minute+":"; else minuteString=minute+":";
 	if (hour<10) hourString="0"+hour+":"; else houreString=hour+":";
-	ClickedCountText.childNodes[0].nodeValue = "clicked: " + ClickCount;
+	ClickedCountText.childNodes[0].nodeValue = "clicked: " + FormatNumberTo(ClickCount);
 	document.getElementById("TimeElapsed").childNodes[0].nodeValue = "time elapsed: "+hourString+minuteString+secondString;
 }
 //---------------------------------------------round---------------------------------
 function RoundTo(value) {
 	return Math.round(value*10)/10;
 }
-//---------------------------------------------cookies-------------------------------
-function set_cookie (name, value) {
-   document.cookie = name + "=" + encodeURI(value.toString()) + "; expires = Thu, 18 Dec 2019 12:00:00 UTC; path=/";
-} //save cookie
-function SaveCookie() {
-	set_cookie("ClickCount",ClickCount);
-	set_cookie("stopButtonTriggered",stopButtonTriggered);
-	set_cookie("second",second); set_cookie("minute",minute);  set_cookie("hour",hour);
-	set_cookie("AutoClickCost",AutoClickCost); set_cookie("AutoClickAmount",AutoClickAmount); set_cookie("AutoClickPower",AutoClickPower);
-} //add here what to save
-var SaveButton = document.getElementById("SaveButton");
-SaveButton.onclick = SaveCookie; //call by click
-
-function get_cookie (cookie_name, defaut) {
-    var nameEQ = cookie_name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return decodeURI(c.substring(nameEQ.length,c.length));
-    }
-    return defaut;
-} //read cookies
+function FormatNumberTo(value) {
+	if(((value*10) % 10) === 0) {return value.toString() + ".0";} else {return value.toString();}
+}
 //-----------------------------------------preload--------------------------------------------
 var images = new Array()
-
 function preload() {
 	for (i = 0; i < preload.arguments.length; i++) {
 		images[i] = new Image()
 		images[i].src = preload.arguments[i]
 	}
 }
-preload(
-	"images/penguins_2.jpg",
-	"images/penguins_2.png"
-)
-//-----------------------------------------start page values----------------------------------
-window.onload = function load_start_cookie_from_page() {
-	if(stopButtonTriggered) {clearInterval(t);} else {stopButton.childNodes[0].nodeValue = "stop";}
-	AutoClickButton.childNodes[0].nodeValue = "auto["+AutoClickAmount+"] ["+AutoClickCost+"click]";
-	preload();
-	EverySecondFunction();	
-	document.getElementById("cover").style.visibility = 'hidden';
-}
+document.getElementById("cover_text").childNodes[0].nodeValue = "Loading Main Script...";
+//preload("images/penguins_2.jpg", "images/penguins_2.png");
+AutoClickButton.childNodes[0].nodeValue = "auto["+AutoClickAmount+"] ["+FormatNumberTo(AutoClickCost)+"click]";
+EverySecondFunction();	
