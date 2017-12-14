@@ -27,6 +27,7 @@ document.getElementById("forestLocationClick").onclick = ForestLocationOnClick;
 function Button9ForestFunc() { //exit
 		EnableButtons("forest", "lake");
 		HomeLocationOnClick();
+		HideExpectOK("oK!");
 };
 
 function Button1ForestFunc() { //explore
