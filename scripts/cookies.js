@@ -5,7 +5,11 @@ function set_cookie (name, value) {
 function SaveCookie() {
 	set_cookie("ClickCount",ClickCount);
 	set_cookie("second",second); set_cookie("minute",minute);  set_cookie("hour",hour);
-	set_cookie("AutoClickCost",AutoClickCost); set_cookie("AutoClickAmount",AutoClickAmount); set_cookie("AutoClickPower",AutoClickPower);
+	set_cookie("AutoClickCost",AutoClickCost); set_cookie("AutoClickAmount",AutoClickAmount); set_cookie("AutoClickPower",AutoClickPower); 
+	set_cookie("ForestLakeIsFound",ForestLakeIsFound);
+	set_cookie("HomeForestIsFound",HomeForestIsFound);
+	set_cookie("CaneCount",CaneCount);
+	set_cookie("CaneFounded",CaneFounded);
 } //add here what to save
 var SaveButton = document.getElementById("SaveButton");
 SaveButton.onclick = SaveCookie; //call by click

@@ -14,6 +14,7 @@ var ClickCount = parseFloat(get_cookie("ClickCount", 0));
 
 ClickButton.onclick = function ClickButtonOnClick() {
 	ClickCount = ClickCount + 1;
+	document.getElementById("ClickedCountHTML").style.display = 'block';
 	ClickedCountText.childNodes[0].nodeValue = "clicked: " + FormatNumberTo(ClickCount);
 }
 //---------------------------------------------autoclick-----------------------------
@@ -33,6 +34,10 @@ AutoClickButton.onclick = function AutoClickButtonOnClick() {
 //---------------------------------------------location------------------------------
 var LocationName = "home";
 
+function NothingHappened() {
+	Bot_Text.nodeValue = "nothing happened";
+}
+
 function DisableButtons(){
 	for (i = 0; i < DisableButtons.arguments.length; i++) {
 		document.getElementById(DisableButtons.arguments[i]+"LocationClick").disabled=true;
@@ -43,6 +48,15 @@ function EnableButtons(){
 		document.getElementById(EnableButtons.arguments[i]+"LocationClick").disabled=false;
 	}
 } 
+
+function HideExpectOK(text){
+	for(i=1; i<9; i++) document.getElementById("bot_button_"+i).style.visibility = 'hidden';
+	Button_9.childNodes[0].nodeValue = text;
+}
+//---------------------------------------------random--------------------------------
+function Randomize(from, to){
+	return Math.floor((Math.random() * to) + from); 
+}
 //---------------------------------------------every second--------------------------
 timeSecond=setInterval(EverySecondFunction, 1000);
 var second=parseInt(get_cookie("second", 0)); var secondString="00";
@@ -79,3 +93,4 @@ document.getElementById("cover_text").childNodes[0].nodeValue = "Loading Main Sc
 //preload("images/penguins_2.jpg", "images/penguins_2.png");
 AutoClickButton.childNodes[0].nodeValue = "auto["+AutoClickAmount+"] ["+FormatNumberTo(AutoClickCost)+"click]";
 EverySecondFunction();	
+if(ClickCount>0) document.getElementById("ClickedCountHTML").style.display = 'block';

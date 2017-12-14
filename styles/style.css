@@ -19,7 +19,7 @@ p {
 button {
 	font-size: 1.5vh;
 	float: left;
-	margin-right: 0.5vh; margin-bottom: 0.5vh;
+	margin-right: 0.2vw; margin-bottom: 0.5vh;
 	background-color: #909090;
 	padding: 0.3vh;
 	cursor: pointer;
@@ -113,7 +113,7 @@ button {
 }
 
 .bot_action_buttons{
-	width: 12.7vh;
+	width: 10.77%;
 	visibility: hidden;
 }
 
@@ -124,6 +124,16 @@ button {
 	padding: 0.5vh;
 	float: left;
 }
+
+.right_location_buttons{
+	width: calc(50% - 0.2vw);
+	visibility: hidden;
+}
+
+.ResourseHave{
+	display: none;
+}
+
 #botton {
 	width: calc(100vw - 0.4vh);
 	height: calc(2vh - 0.4vh - 0.2vh);
