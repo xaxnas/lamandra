@@ -16,7 +16,7 @@ function ForestLocationOnClick() {
 	Button_1.style.visibility = 'visible'; Button_1.childNodes[0].nodeValue = "explore";
 	Button_2.style.visibility = 'visible'; Button_2.childNodes[0].nodeValue = "gather";
 	Button_9.style.visibility = 'visible'; Button_9.childNodes[0].nodeValue = "exit";
-	//DisableButtons("forest", "lake");
+	DisableButtons("forest");
 	
 	Button_1.onclick = Button1ForestFunc;
 	Button_2.onclick = Button2ForestFunc;
@@ -25,9 +25,9 @@ function ForestLocationOnClick() {
 document.getElementById("forestLocationClick").onclick = ForestLocationOnClick;
 //---------------------------------------------buttons------------------------------
 function Button9ForestFunc() { //exit
-		EnableButtons("forest", "lake");
-		HomeLocationOnClick();
+		EnableButtons("forest");
 		HideExpectOK("oK!");
+		HomeLocationOnClick();
 };
 
 function Button1ForestFunc() { //explore
@@ -47,7 +47,7 @@ function Button1ForestFunc() { //explore
 			ForestLakeIsFound = true;
 			Bot_Text.nodeValue = "You found lake!";
 			document.getElementById("lakeLocationClick").style.visibility = 'visible';
-			Button_1.style.visibility = 'hidden';
+			HideExpectOK("Great!");
 		}
 	}
 	else if(random >= 37 && random < 42) {
