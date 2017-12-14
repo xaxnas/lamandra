@@ -7,6 +7,7 @@ preload(
 HomeLocationOnClick();
 //---------------------------------------------forest--------------------------------
 function HomeLocationOnClick() {
+	EnableButtons("forest");
 	LocationImage.setAttribute ('src','images/home.jpg');
 	Bot_Text.nodeValue = "You are in the home";
 	Button_9.style.visibility = 'hidden';
@@ -35,6 +36,7 @@ function Button1HomeFunc() {
 			document.getElementById("forestLocationClick").style.visibility = 'visible';
 			HideExpectOK("exit");
 			Button_9.onclick = Button9HomeFunc;
+			DisableButtons("forest");
 		}
 	}
 	else if(random === 9) {

@@ -48,6 +48,7 @@ function Button1ForestFunc() { //explore
 			Bot_Text.nodeValue = "You found lake!";
 			document.getElementById("lakeLocationClick").style.visibility = 'visible';
 			HideExpectOK("Great!");
+			Button_9.onclick = ForestLocationOnClick;
 		}
 	}
 	else if(random >= 37 && random < 42) {
