@@ -51,6 +51,7 @@ function EnableButtons(){
 
 function HideExpectOK(text){
 	for(i=1; i<9; i++) document.getElementById("bot_button_"+i).style.visibility = 'hidden';
+	Button_9.style.visibility = 'visible';
 	Button_9.childNodes[0].nodeValue = text;
 }
 //---------------------------------------------random--------------------------------
