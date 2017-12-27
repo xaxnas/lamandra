@@ -5,7 +5,7 @@ var CaneCount = parseFloat(get_cookie("CaneCount", 0));
 //--------------------------------------------load-----------------------------------
 document.getElementById("cover_text").childNodes[0].nodeValue = "Loading Forest...";
 preload(
-	"images/forest_1.png");
+	"images/forest_1.png", "images/cane.png");
 if(CaneFounded) document.getElementById("CaneCount").style.display = 'block';
 document.getElementById("CaneCount").childNodes[0].nodeValue = "Cane: "+FormatNumberTo(CaneCount);
 if(HomeForestIsFound) document.getElementById("forestLocationClick").style.visibility = 'visible';
@@ -13,10 +13,12 @@ if(HomeForestIsFound) document.getElementById("forestLocationClick").style.visib
 function ForestLocationOnClick() {
 	LocationImage.setAttribute ('src','images/forest_1.png');
 	Bot_Text.nodeValue = "You are in the forest";
-	Button_1.style.visibility = 'visible'; Button_1.childNodes[0].nodeValue = "explore";
-	Button_2.style.visibility = 'visible'; Button_2.childNodes[0].nodeValue = "gather";
-	Button_9.style.visibility = 'visible'; Button_9.childNodes[0].nodeValue = "exit";
-	DisableButtons("forest");
+	MakeVisibleButtons(1,2,9);
+	Button_1.childNodes[0].nodeValue = "explore";
+	Button_2.childNodes[0].nodeValue = "gather";
+	Button_9.childNodes[0].nodeValue = "exit";
+	EnableButtons("lake");
+	DisableButtons("forest"); RemovePopUp();
 	
 	Button_1.onclick = Button1ForestFunc;
 	Button_2.onclick = Button2ForestFunc;
@@ -43,13 +45,7 @@ function Button1ForestFunc() { //explore
 	}
 	else if(random >= 32 && random < 37) {
 		if(ForestLakeIsFound) NothingHappened();
-		else {
-			ForestLakeIsFound = true;
-			Bot_Text.nodeValue = "You found lake!";
-			document.getElementById("lakeLocationClick").style.visibility = 'visible';
-			HideExpectOK("Great!");
-			Button_9.onclick = ForestLocationOnClick;
-		}
+		else FoundLake();
 	}
 	else if(random >= 37 && random < 42) {
 		Bot_Text.nodeValue = "event number 5 ("+(5/50) * 100+"%)";
@@ -74,9 +70,11 @@ function Button1ForestFunc() { //explore
 
 function Button2ForestFunc() { //gather
 	Bot_Text.nodeValue = "What do you want to gather in forest?";
-	Button_1.childNodes[0].nodeValue = "random";
+	HideExpectOK("exit");
 	DisableButtons("forest", "lake");
-	Button_2.style.visibility = 'hidden';
+	Button_1.onmouseover = function() {PopUpButton(1, "random");} 
+	Button_1.style.visibility = 'visible';
+	Button_1.childNodes[0].nodeValue = "random";
 	Button_1.onclick = function() {
 		random=Randomize(0,8);
 		if (random >=0 && random < 3) {
@@ -93,17 +91,29 @@ function Button2ForestFunc() { //gather
 		}
 		else Bot_Text.nodeValue = "event ERRROR";
 	}
+	if(CaneFounded) {
+		Button_2.onclick = GatherCane; 
+		Button_2.style.visibility = 'visible'; Button_2.childNodes[0].nodeValue = "cane"; 
+		Button_2.onmouseover = function() {PopUpButton(2, "cane");} 
+	}
 	Button_9.onclick = ForestLocationOnClick;
 }
 //-----------------------------------------------events-------------------------------
+function FoundLake() {
+	ForestLakeIsFound = true;
+	Bot_Text.nodeValue = "You found lake!";
+	document.getElementById("lakeLocationClick").style.visibility = 'visible';
+	HideExpectOK("Great!");
+	Button_9.onclick = ForestLocationOnClick;
+}
 function GatherCane(){
-	for(i=2; i<10; i++)
 	HideExpectOK("oK!");
 	random=Randomize(1,11);
-	Bot_Text.nodeValue = "You gathered "+random+" cane!";
+	Bot_Text.nodeValue = "you wander near a tree, and gathered "+random+" cane!";
 	CaneCount=RoundTo(CaneCount+random);
 	document.getElementById("CaneCount").childNodes[0].nodeValue = "Cane: "+FormatNumberTo(CaneCount);
 	if(!CaneFounded) {document.getElementById("CaneCount").style.display = 'block'; CaneFounded=true;}
+	Button_9.onclick = Button2ForestFunc;
 }
 
 

@@ -8,8 +8,9 @@ function SaveCookie() {
 	set_cookie("AutoClickCost",AutoClickCost); set_cookie("AutoClickAmount",AutoClickAmount); set_cookie("AutoClickPower",AutoClickPower); 
 	set_cookie("ForestLakeIsFound",ForestLakeIsFound);
 	set_cookie("HomeForestIsFound",HomeForestIsFound);
-	set_cookie("CaneCount",CaneCount);
-	set_cookie("CaneFounded",CaneFounded);
+	set_cookie("CaneCount",CaneCount); set_cookie("CaneFounded",CaneFounded);
+	set_cookie("FlintCount",FlintCount); set_cookie("FlintFounded",FlintFounded);
+	set_cookie("HandAxeCount",HandAxeCount);
 } //add here what to save
 var SaveButton = document.getElementById("SaveButton");
 SaveButton.onclick = SaveCookie; //call by click

@@ -32,8 +32,6 @@ AutoClickButton.onclick = function AutoClickButtonOnClick() {
 	}
 }
 //---------------------------------------------location------------------------------
-var LocationName = "home";
-
 function NothingHappened() {
 	Bot_Text.nodeValue = "nothing happened";
 }
@@ -54,6 +52,26 @@ function HideExpectOK(text){
 	Button_9.style.visibility = 'visible';
 	Button_9.childNodes[0].nodeValue = text;
 }
+function MakeVisibleButtons(){
+	for(i=1; i<10; i++) document.getElementById("bot_button_"+i).style.visibility = 'hidden';
+	for(i=0; i<MakeVisibleButtons.arguments.length; i++) document.getElementById("bot_button_"+MakeVisibleButtons.arguments[i]).style.visibility = 'visible';
+}
+function PopUpButton(number, src){ //popup
+	var PopUpTimer = setTimeout(function() {
+		document.getElementById('popupimg').setAttribute("src","images/"+src+".png");
+		document.getElementById('popup').style.transition = "0.5s opacity";
+		document.getElementById('popup').style.left = 24.015+(6.585*number)+"%";
+		document.getElementById('popup').style.opacity = "1"; 
+	}, 200); 
+	document.getElementById("bot_button_"+number).onmouseout = function() {
+		clearTimeout(PopUpTimer);
+		document.getElementById('popup').style.transition = "none";
+		document.getElementById('popup').style.opacity = "0";
+	}
+}
+function RemovePopUp(){
+	for(i=1; i<10; i++) document.getElementById("bot_button_"+i).onmouseover = undefined;
+}
 //---------------------------------------------random--------------------------------
 function Randomize(from, to){
 	return Math.floor((Math.random() * to) + from); 
@@ -71,7 +89,7 @@ function EverySecondFunction() {
 	if (minute===60) {hour=hour+1; minute=0;}
 	if (second<10) secondString="0"+second; else secondString=second;
 	if (minute<10) minuteString="0"+minute+":"; else minuteString=minute+":";
-	if (hour<10) hourString="0"+hour+":"; else houreString=hour+":";
+	if (hour<10) hourString="0"+hour+":"; else hourString=hour+":";
 	ClickedCountText.childNodes[0].nodeValue = "clicked: " + FormatNumberTo(ClickCount);
 	document.getElementById("TimeElapsed").childNodes[0].nodeValue = "time elapsed: "+hourString+minuteString+secondString;
 }
@@ -91,7 +109,7 @@ function preload() {
 	}
 }
 document.getElementById("cover_text").childNodes[0].nodeValue = "Loading Main Script...";
-//preload("images/penguins_2.jpg", "images/penguins_2.png");
+preload("images/random.png");
 AutoClickButton.childNodes[0].nodeValue = "auto["+AutoClickAmount+"] ["+FormatNumberTo(AutoClickCost)+"click]";
 EverySecondFunction();	
 if(ClickCount>0) document.getElementById("ClickedCountHTML").style.display = 'block';

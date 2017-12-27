@@ -7,7 +7,7 @@ preload(
 HomeLocationOnClick();
 //---------------------------------------------forest--------------------------------
 function HomeLocationOnClick() {
-	EnableButtons("forest");
+	EnableButtons("forest", "lake");
 	LocationImage.setAttribute ('src','images/home.jpg');
 	Bot_Text.nodeValue = "You are in the home";
 	Button_9.style.visibility = 'hidden';
